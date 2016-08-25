@@ -3824,10 +3824,12 @@ public:
         if ([self.delegate respondsToSelector:@selector(mapView:viewForAnnotation:)])
         {
             userLocationAnnotationView = (MGLUserLocationAnnotationView *)[self.delegate mapView:self viewForAnnotation:self.userLocation];
-            if (userLocationAnnotationView)
+            if ( ! [userLocationAnnotationView isKindOfClass:MGLUserLocationAnnotationView.class])
             {
-                NSAssert([userLocationAnnotationView.class isSubclassOfClass:MGLUserLocationAnnotationView.class],
-                         @"User location annotation view must be a subclass of MGLUserLocationAnnotationView");
+                // Ignore the user-provided annotation if it is not a kind of
+                // MGLUserLocationAnnotationView (and use the default user
+                // location annotation instead).
+                userLocationAnnotationView = nil;
             }
         }
         
