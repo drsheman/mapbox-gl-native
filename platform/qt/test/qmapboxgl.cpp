@@ -63,39 +63,39 @@ private slots:
     };
 };
 
-TEST_F(QMapboxGLTest, styleJSON) {
+TEST_F(QMapboxGLTest, styleJson) {
     SKIP_CI;
 
     QString json = QString::fromStdString(
         mbgl::util::read_file("test/fixtures/resources/style_vector.json"));
 
-    map.setStyleJSON(json);
-    ASSERT_EQ(map.styleJSON(), json);
+    map.setStyleJson(json);
+    ASSERT_EQ(map.styleJson(), json);
     runUntil(QMapboxGL::MapChangeDidFinishLoadingMap);
 
-    map.setStyleJSON("invalid json");
+    map.setStyleJson("invalid json");
     runUntil(QMapboxGL::MapChangeDidFailLoadingMap);
 
-    map.setStyleJSON("\"\"");
+    map.setStyleJson("\"\"");
     runUntil(QMapboxGL::MapChangeDidFailLoadingMap);
 
-    map.setStyleJSON(QString());
+    map.setStyleJson(QString());
     runUntil(QMapboxGL::MapChangeDidFailLoadingMap);
 }
 
-TEST_F(QMapboxGLTest, styleURL) {
+TEST_F(QMapboxGLTest, styleUrl) {
     SKIP_CI;
 
     QString url(QMapbox::defaultStyles()[0].first);
 
-    map.setStyleURL(url);
-    ASSERT_EQ(map.styleURL(), url);
+    map.setStyleUrl(url);
+    ASSERT_EQ(map.styleUrl(), url);
     runUntil(QMapboxGL::MapChangeDidFinishLoadingMap);
 
-    map.setStyleURL("invalid://url");
+    map.setStyleUrl("invalid://url");
     runUntil(QMapboxGL::MapChangeDidFailLoadingMap);
 
-    map.setStyleURL(QString());
+    map.setStyleUrl(QString());
     runUntil(QMapboxGL::MapChangeDidFailLoadingMap);
 }
 
