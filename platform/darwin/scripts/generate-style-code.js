@@ -37,7 +37,7 @@ global.testGetterImplementation = function (property, layerType, isFunction) {
         if (isFunction) {
             return `XCTAssertEqualObjects(gLayer.${objCName(property)}, ${value});`;
         }
-        return `XCTAssert([(NSValue *)gLayer.${objCName(property)} isEqualToValue:${value}]);`;
+        return `XCTAssert([(NSValue *)gLayer.${objCName(property)} isEqualToValue:${value}], @"%@ is not equal to %@", gLayer.${objCName(property)}, ${value});`;
     }
     return `XCTAssertEqualObjects(gLayer.${objCName(property)}, ${value});`;
 }
