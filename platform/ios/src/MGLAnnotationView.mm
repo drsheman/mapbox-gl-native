@@ -82,6 +82,12 @@
 
 - (void)updateTransform
 {
+    // Omit applying a new transformation if not draggable so as to not interfere with user transforms.
+    if (self.draggable == NO)
+    {
+        return;
+    }
+
     // Omit applying a new transformation while the view is being dragged.
     if (self.dragState == MGLAnnotationViewDragStateDragging)
     {
