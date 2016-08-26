@@ -20,11 +20,13 @@
             [(MGLStyleAttributeFunction *)name base].floatValue, \
         }; \
         self.layer->set##Name(function); \
-    } else { \
+    } else if (name) { \
         NSAssert([name isKindOfClass:[NSValue class]], @"" #name @"should be an NSValue"); \
         ObjCType value; \
         [(NSValue *)name getValue:&value]; \
         self.layer->set##Name({ static_cast<mbgl::style::MBGLType>(value) }); \
+    } else { \
+        self.layer->set##Name({}); \
     }
 
 #define MGLGetEnumProperty(Name, MBGLType, ObjCType) \
