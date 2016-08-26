@@ -37,7 +37,8 @@
         auto stops = property.asFunction().getStops(); \
         NSMutableDictionary *convertedStops = [NSMutableDictionary dictionaryWithCapacity:stops.size()]; \
         for (auto stop : stops) { \
-            convertedStops[@(stop.first)] = [NSValue value:&stop.second withObjCType:type]; \
+            ObjCType value = static_cast<ObjCType>(stop.second); \
+            convertedStops[@(stop.first)] = [NSValue value:&value withObjCType:type]; \
         } \
         function.base = @(property.asFunction().getBase()); \
         function.stops = convertedStops; \
